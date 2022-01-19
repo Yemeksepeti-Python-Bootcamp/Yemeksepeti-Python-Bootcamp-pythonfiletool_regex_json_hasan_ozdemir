@@ -49,6 +49,27 @@ class RegexOperations:
             return True
         else:
             return False
+            
+    #TODO 1
+    def is_valid_username_email(self,username:str,mail:str)->bool:
+        pass
+    
+    #TODO 2
+    def is_valid_namesurname_username(self,name:str,surname:str,username:str)->bool:
+        pass
+
+    #TODO 3
+    def is_valid_birth_year(self,birth_year:str)->bool:
+        pass
+
+    #TODO 4
+    def is_valid_birth_month(self,birth_month:str)->bool:
+        pass
+
+    #TODO 5
+    def is_valid_birthday(self,birthday:str)->bool:
+        pass
+
 if __name__=='__main__':
     regex_obj=RegexOperations()
     regex_obj.is__valid_name_surname(name='hasanasdagmaaaxxxxxa',surname='ozdemir')
