@@ -36,6 +36,19 @@ class RegexOperations:
         else:
             return False
 
+    def is__valid_name_surname(self,name:str,surname:str)->bool:
+        """
+        This method is created to check name and surname are valid nor invalid
+        :param name: <str> name to check is valid nor invalid
+        :param surname: <str> surname to check is valid nor invalid
+        :return: <bool> Valid or Invalid
+        """
+        # # A string between 3 and 20 characters, allowing only characters
+        name_surname_pattern=r"^[a-zA-Z]{3,20}$"
+        if match(name_surname_pattern,name) and match(name_surname_pattern,surname):
+            return True
+        else:
+            return False
 if __name__=='__main__':
     regex_obj=RegexOperations()
-    regex_obj.is_valid_username(username='hasanasdagmaaaxxxxxa')
+    regex_obj.is__valid_name_surname(name='hasanasdagmaaaxxxxxa',surname='ozdemir')
