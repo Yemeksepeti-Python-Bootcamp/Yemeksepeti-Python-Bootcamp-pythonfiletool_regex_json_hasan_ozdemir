@@ -43,19 +43,32 @@ class RegexOperations:
         :param surname: <str> surname to check is valid nor invalid
         :return: <bool> Valid or Invalid
         """
-        # # A string between 3 and 20 characters, allowing only characters
+        # A string between 3 and 20 characters, allowing only characters
         name_surname_pattern=r"^[a-zA-Z]{3,20}$"
         if match(name_surname_pattern,name) and match(name_surname_pattern,surname):
             return True
         else:
             return False
             
-    #TODO 1
+    #TODO documentation
     def is_valid_username_email(self,username:str,mail:str)->bool:
-        pass
+        # # create substring with username
+        # -> min 3 character must match
+        sub_username=[username[:i+3] for i in range(len(username)-3)]
+        # Typical Email Structure johndoe@xyz.com
+        # johndoe: username xyz : domain
+        # take username from email
+        email_username=mail[:mail.index('@')] 
+        if (any([True if item in email_username else False for item in sub_username ])):
+            return True
+        else:
+            return False
     
+
+    # TODO documentation
     def is_valid_namesurname_username(self,name:str,surname:str,username:str)->bool:
         # create substring with name & surname
+        # -> min 4 character must match
         sub_name=[name[i:i+4] for i in range(len(name)-4)]
         sub_surname=[surname[i:i+4] for i in range(len(surname)-4)]
         # check any part of substring is passing in username
@@ -79,3 +92,4 @@ if __name__=='__main__':
     regex_obj=RegexOperations()
     # regex_obj.is__valid_name_surname(name='hasanasdagmaaaxxxxxa',surname='ozdemir')
     # regex_obj.is_valid_namesurname_username('hasan','ozdemir','cancancan')
+    # regex_obj.is_valid_username_email('hasan','hasanhasan@gmail.com')
