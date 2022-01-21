@@ -4,7 +4,7 @@ This script is created to check for various input is valid or invalid with suppo
 """
 
 from re import match
-from json.helper import HelperRegex
+from helper import HelperRegex
 
 class RegexOperations(HelperRegex):
 
@@ -152,6 +152,7 @@ class RegexOperations(HelperRegex):
 
 if __name__=='__main__':
     regex_obj=RegexOperations()
+    print(regex_obj.is_valid_mail('hasna@gmail.com'))
     # regex_obj.is__valid_name_surname(name='hasanasdagmaaaxxxxxa',surname='ozdemir')
     # regex_obj.is_valid_namesurname_username('hasan','ozdemir','cancancan')
     # regex_obj.is_valid_username_email('hasan','hasanhasan@gmail.com')

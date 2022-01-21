@@ -1,5 +1,5 @@
 """
-This script is created to manage database opeations 
+This script is created to manage dir_database opeations
 @Hasan Özdemir 01/21/2022
 """
 
