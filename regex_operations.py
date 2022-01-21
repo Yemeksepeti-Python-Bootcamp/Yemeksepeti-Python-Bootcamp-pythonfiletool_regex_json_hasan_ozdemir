@@ -4,9 +4,9 @@ This script is created to check for various input is valid or invalid with suppo
 """
 
 from re import match
-from helper import Helper
+from helper import HelperRegex
 
-class RegexOperations(Helper):
+class RegexOperations(HelperRegex):
 
     def __init__(self) -> None:
         pass

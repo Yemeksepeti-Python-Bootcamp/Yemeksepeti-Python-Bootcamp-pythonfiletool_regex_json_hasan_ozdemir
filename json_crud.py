@@ -3,8 +3,9 @@ This script is created make CRUD operations on json files.
 @Hasan Özdemir 01/18/2022
 """
 from json import load
+from helper import HelperJson
 
-class JsonCrud:
+class JsonCrud(HelperJson):
 
     def __init__(self) -> None:
         """
@@ -25,28 +26,14 @@ class JsonCrud:
                 # check the each key is that existed 
                 if item['id'] and item['email'] and item['username'] and item['profile']['name'] and item['profile']['dob'] and item['profile']['address'] and item['profile']['location']['lat'] and item['profile']['location']['long'] and item["apiKey"]:
                     # fetch all field from json seperately
-                    data_seperated=self.fetch_json(item)
+                    data_seperated=self.fetch_dict(item)
                     # append to list
                     self.json_data.append(data_seperated)  
             # context manager with close automatically file but lets make it sure for closing file
             json_file.close()      
         return (self.json_data)
             
-    def fetch_json(self,item)->list:
-        """
-        This method used to fetch each item of json file
-        :param item: <dict> Each item of json
-        """
-        id=item['id']
-        username=item['username']
-        p_name=item['profile']['name']
-        p_dob=item['profile']['dob']
-        p_address=item['profile']['address']
-        p_l_lat=item['profile']['location']['lat']
-        p_l_long=item['profile']['location']['long']
-        api_key=item['apiKey']
-        # return fetched item as list
-        return [id,username,p_name,p_dob,p_address,p_l_lat,p_l_long,api_key]
+
         
 if __name__=='__main__':
     j_obj=JsonCrud()

@@ -1,27 +1,24 @@
-# import packages
-from argparse import ArgumentParser
-from sys import argv
+"""
+This script is created to manage database opeations 
+@Hasan Özdemir 01/21/2022
+"""
+
 import sqlite3 as sql
+from helper import HelperDb
 
 
-class Database:
+class Database(HelperDb):
 
     def __init__(self) -> None:
-        # initialize Argument parser
-        parser=ArgumentParser()
-        # prepare named arguments
-        parser.add_argument('--file',help='Json file path',type=str)
-        parser.add_argument('--db',help='Database file path',type=str)
-        # get the named command line arguments
-        self.json_path=parser.parse_args().file
-        self.db_path=parser.parse_args().db
+        # inherit from HelperDb class
+        HelperDb.__init__(self)
 
     # if you want to test in further you can use this built-in method
     def __str__(self) -> list:
         return [self.json_path,self.db_path]
         
 
-    def read_data(self):
+    def push_data_to_db(self):
         pass
 
 
