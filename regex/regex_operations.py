@@ -4,7 +4,7 @@ This script is created to check for various input is valid or invalid with suppo
 """
 
 from re import match
-from helper import HelperRegex
+from json.helper import HelperRegex
 
 class RegexOperations(HelperRegex):
 
