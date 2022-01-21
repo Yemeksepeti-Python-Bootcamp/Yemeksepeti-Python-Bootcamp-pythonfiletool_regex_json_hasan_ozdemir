@@ -17,7 +17,9 @@ class HelperRegex:
         """
         try:
             year=int(year)
-            if (year%400==0) or ((year%100==0) and (year%4==0)) and year:
+            if (year % 400 == 0) and (year % 100 == 0) and year:
+                return True
+            elif (year % 4 == 0) and (year % 100 != 0):
                 return True
             else:
                 return False
