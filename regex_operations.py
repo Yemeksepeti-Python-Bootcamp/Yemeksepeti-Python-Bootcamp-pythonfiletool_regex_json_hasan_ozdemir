@@ -4,8 +4,9 @@ This script is created to check for various input is valid or invalid with suppo
 """
 
 from re import match
+from helpers import Helper
 
-class RegexOperations:
+class RegexOperations(Helper):
 
     def __init__(self) -> None:
         pass
@@ -51,9 +52,15 @@ class RegexOperations:
             return True
         else:
             return False
-            
-    #TODO documentation
+
+
     def is_valid_username_email(self,username:str,mail:str)->bool:
+        """
+        This method is created to check username whether is a part of mail or not 
+        :param username: <str> username 
+        :param mail : <str> user email
+        :return : <bool> Valid or Invalid
+        """
         # # create substring with username
         # -> min 3 character must match
         sub_username=[username[:i+3] for i in range(len(username)-3)]
@@ -67,8 +74,14 @@ class RegexOperations:
             return False
     
 
-    # TODO documentation
     def is_valid_namesurname_username(self,name:str,surname:str,username:str)->bool:
+        """
+        This method is created to check name or surname whether is a part of username or not 
+        :param name: <str> name 
+        :param surname: <str> surname 
+        :param username : <str> user username
+        :return : <bool> Valid or Invalid
+        """
         # create substring with name & surname
         # -> min 4 character must match
         sub_name=[name[i:i+4] for i in range(len(name)-4)]
@@ -79,8 +92,13 @@ class RegexOperations:
         else:
             return False
     
-    #TODO documentation
+
     def is_valid_birth_year(self,birth_year:str)->bool:
+        """
+        This method is created to check year whether is valid or not
+        :param birth_year: <str> Year of birth 
+        :return : <bool> Valid or Invalid
+        """
         try:  
             # check is digit
             birth_year = int(birth_year)
@@ -91,8 +109,13 @@ class RegexOperations:
         except Exception as Error:
             pass
 
-    #TODO documentation
+
     def is_valid_birth_month(self,birth_month:str)->bool:
+        """
+        This method is created to check month whether is valid or not
+        :param birth_month: <str> Year of month 
+        :return : <bool> Valid or Invalid
+        """
         try:  
             # check is digit
             birth_month = int(birth_month)
@@ -103,8 +126,15 @@ class RegexOperations:
         except Exception as Error:
             pass
 
-    #TODO documentation
+
     def is_valid_birthday(self,birth_year:str,birth_month:str,birthday:str)->bool:
+        """
+        This method is created to check birthday whether is valid or not
+        :param birth_year: <str> Year of birth 
+        :param birth_month: <str> Year of month 
+        :param birthday: <str> Year of day
+        :return : <bool> Valid or Invalid
+        """
         try:
             day_of_month:dict={1:31,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
             if self.is_leap_year(int(birth_year)):
@@ -119,13 +149,6 @@ class RegexOperations:
         except Exception as Error:
             pass
 
-    # TODO documentation
-    def is_leap_year(self,year:int)->bool:
-        if (year%400==0) or ((year%100==0) and (year%4==0)):
-            return True
-
-        else:
-            return False
 
 if __name__=='__main__':
     regex_obj=RegexOperations()
@@ -133,4 +156,4 @@ if __name__=='__main__':
     # regex_obj.is_valid_namesurname_username('hasan','ozdemir','cancancan')
     # regex_obj.is_valid_username_email('hasan','hasanhasan@gmail.com')
     # print(regex_obj.is_valid_birth_year("1997"))
-    #print(regex_obj.is_valid_birthday('1990',"2",'28'))
+    # print(regex_obj.is_valid_birthday('1990',"2",'282'))
