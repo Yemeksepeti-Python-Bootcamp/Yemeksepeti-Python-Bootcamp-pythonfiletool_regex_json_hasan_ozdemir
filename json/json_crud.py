@@ -19,20 +19,26 @@ class JsonCrud(HelperJson):
         :param json_path: <str> path of json file to read
         :return: <list> data fetched from given json file
         """
-        with open(json_path) as json_file:
-            json_data=load(json_file)
-            # loop through json items
-            for item in json_data:
-                # check the each key is that existed 
-                if item['id'] and item['email'] and item['username'] and item['profile']['name'] and item['profile']['dob'] and item['profile']['address'] and item['profile']['location']['lat'] and item['profile']['location']['long'] and item["apiKey"]:
-                    # fetch all field from json seperately
-                    data_seperated=self.fetch_dict(item)
-                    # append to list
-                    self.json_data.append(data_seperated)  
-            # context manager with close automatically file but lets make it sure for closing file
-            json_file.close()      
-        return (self.json_data)
-            
+        try:
+            with open(json_path) as json_file:
+                json_data=load(json_file)
+                # loop through json items
+                for item in json_data:
+                    # check the each key is that existed 
+                    if item['id'] and item['email'] and item['username'] and item['profile']['name'] and item['profile']['dob'] and item['profile']['address'] and item['profile']['location']['lat'] and item['profile']['location']['long'] and item["apiKey"]:
+                        # fetch all field from json seperately
+                        data_seperated=self.fetch_dict(item)
+                        # append to list
+                        self.json_data.append(data_seperated)  
+                # context manager with close automatically file but lets make it sure for closing file
+                json_file.close()      
+            return (self.json_data)
+        except FileNotFoundError as error:
+            # TODO 
+            pass
+        except KeyError as error:
+            # TODO
+            pass
 
         
 if __name__=='__main__':
