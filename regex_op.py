@@ -22,7 +22,8 @@ class RegexOperations:
             return True
         else:
             return False
-    
+
+ 
     def is_valid_username(self,username:str)->bool:
         """
         This method is created to check username is valid nor invalid
@@ -35,6 +36,7 @@ class RegexOperations:
             return True
         else:
             return False
+
 
     def is__valid_name_surname(self,name:str,surname:str)->bool:
         """
@@ -55,7 +57,7 @@ class RegexOperations:
         # # create substring with username
         # -> min 3 character must match
         sub_username=[username[:i+3] for i in range(len(username)-3)]
-        # Typical Email Structure johndoe@xyz.com
+        # Ex : johndoe@xyz.com
         # johndoe: username xyz : domain
         # take username from email
         email_username=mail[:mail.index('@')] 
@@ -76,20 +78,59 @@ class RegexOperations:
             return True
         else:
             return False
-    #TODO 3
+    
+    #TODO documentation
     def is_valid_birth_year(self,birth_year:str)->bool:
-        pass
+        try:  
+            # check is digit
+            birth_year = int(birth_year)
+            # check whether is logical nor not
+            if birth_year >=1900 and birth_year <=2022:
+                return True
+            return False
+        except Exception as Error:
+            pass
 
-    #TODO 4
+    #TODO documentation
     def is_valid_birth_month(self,birth_month:str)->bool:
-        pass
+        try:  
+            # check is digit
+            birth_month = int(birth_month)
+            # check whether is logical nor not
+            if birth_month >=1 and birth_month <=12:
+                return True
+            return False
+        except Exception as Error:
+            pass
 
-    #TODO 5
-    def is_valid_birthday(self,birthday:str)->bool:
-        pass
+    #TODO documentation
+    def is_valid_birthday(self,birth_year:str,birth_month:str,birthday:str)->bool:
+        try:
+            day_of_month:dict={1:31,3:31,4:30,5:31,6:30,7:31,8:31,9:30,10:31,11:30,12:31}
+            if self.is_leap_year(int(birth_year)):
+                day_of_month[2]=29
+            else:
+                day_of_month[2]=28
+            birthday=int(birthday)
+            if birthday>0 and birthday<=day_of_month[int(birth_month)]:
+                return True
+            else:
+                return False
+        except Exception as Error:
+            pass
+
+    # TODO documentation
+    def is_leap_year(self,year:int)->bool:
+        if (year%400==0) or ((year%100==0) and (year%4==0)):
+            return True
+
+        else:
+            return False
 
 if __name__=='__main__':
     regex_obj=RegexOperations()
     # regex_obj.is__valid_name_surname(name='hasanasdagmaaaxxxxxa',surname='ozdemir')
     # regex_obj.is_valid_namesurname_username('hasan','ozdemir','cancancan')
     # regex_obj.is_valid_username_email('hasan','hasanhasan@gmail.com')
+    # print(regex_obj.is_valid_birth_year("1997"))
+    #print(regex_obj.is_valid_birthday('1990',"2",'28'))
