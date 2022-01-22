@@ -57,6 +57,15 @@ class HelperDb:
         """
         return create_table_str
 
+    def push_data_str(self)->str:
+        """
+        This method is created to provide insert data sql dialect
+        :return: <str> sql dialect
+        """
+        push_str="""INSERT INTO %s (id,username,p_name,p_b_year,p_b_month,
+                    p_b_day,p_address,p_l_lat,p_l_long,api_key) 
+                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) """
+        return push_str
 
 if __name__ == '__main__':
     help_obj = HelperDb()
