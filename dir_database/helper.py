@@ -4,6 +4,7 @@ This script is created to manage helper methods
 """
 
 from argparse import ArgumentParser
+from datetime import datetime
 from sys import argv
 
 class HelperDb:
@@ -14,6 +15,7 @@ class HelperDb:
         return : None
         """
         # initialize Argument parser
+
         parser=ArgumentParser()
         # prepare named arguments
         parser.add_argument('--file',help='Json file path',type=str)
@@ -21,3 +23,18 @@ class HelperDb:
         # get the named command line arguments
         self.json_path=parser.parse_args().file
         self.db_path=parser.parse_args().db
+
+
+
+    def time_formatting(self)->str:
+        """
+        This method is created to format datetime for yyyy_dd_mm format
+        :return: <str> formatted datetime
+        """
+        now=datetime.now()
+        date_time = str(now.strftime("%Y_%d_%m"))
+        return date_time
+
+if __name__=='__main__':
+    help_obj=HelperDb()
+    help_obj.time_formatting()
