@@ -4,16 +4,20 @@ This script is created make CRUD operations on dir_json files.
 """
 from json import load
 from helper import HelperJson
+from dir_logging.project_logging import ProjectLogging
+from dir_constants.project_constants import LOG_PATH, JSON_PATH
 
-class JsonCrud(HelperJson):
+
+class JsonCrud(HelperJson, ProjectLogging):
 
     def __init__(self) -> None:
         """
         This constructor is used to initialize json_data list object
         """
-        self.json_data:list=list()
+        ProjectLogging.__init__(self, log_file=LOG_PATH)
+        self.json_data: list = list()
 
-    def read_json(self,json_path:str)->list:
+    def read_json(self, json_path: str) -> list:
         """
         This method is used to read data from dir_json files
         :param json_path: <str> path of dir_json file to read
@@ -21,26 +25,41 @@ class JsonCrud(HelperJson):
         """
         try:
             with open(json_path) as json_file:
-                json_data=load(json_file)
+                json_data = load(json_file)
                 # loop through dir_json items
                 for item in json_data:
-                    # check the each key is that existed 
-                    if item['id'] and item['email'] and item['username'] and item['profile']['name'] and item['profile']['dob'] and item['profile']['address'] and item['profile']['location']['lat'] and item['profile']['location']['long'] and item["apiKey"]:
-                        # fetch all field from dir_json seperately
-                        data_seperated=self.fetch_dict(item)
+                    # check the key is that existed
+                    if item['id'] and item['email'] and item['username'] and item['profile']['name'] and \
+                            item['profile']['dob'] and item['profile']['address'] and item["apiKey"]\
+                            and item['profile']['location']['lat'] and item['profile']['location']['long']:
+                        # fetch all field from dir_json separately
+                        data_seperated = self.fetch_dict(item)
                         # append to list
-                        self.json_data.append(data_seperated)  
-                # context manager with close automatically file but lets make it sure for closing file
-                json_file.close()      
-            return (self.json_data)
-        except FileNotFoundError as error:
-            # TODO 
-            pass
-        except KeyError as error:
-            # TODO
-            pass
+                        self.json_data.append(data_seperated)
+                        # context manager, close the file automatically but let's make it sure for closing file
+                json_file.close()
+            # log process successfully done
+            self.info_log('Data fetched successfully')
+            # return fetched data
+            return self.json_data
 
-        
-if __name__=='__main__':
-    j_obj=JsonCrud()
-    j_obj.read_json("dataregex.dir_json")
+        # if file is not found log to projects_logs.log file
+        except FileNotFoundError as file_error:
+            # file not found error raised
+            self.error_log(str(file_error))
+            # return null list
+            return []
+
+        except KeyError as key_error:
+            # key error raised
+            self.error_log(str(key_error))
+            # return null list
+            return []
+
+
+if __name__ == '__main__':
+    j_obj = JsonCrud()
+    # Test Info Log
+    j_obj.read_json(JSON_PATH)
+    # Test File Not Found Log
+    j_obj.read_json('hasan.xyz')
