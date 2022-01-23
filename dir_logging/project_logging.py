@@ -8,26 +8,29 @@ import logging.handlers
 class ProjectLogging:
 
     def __init__(self) -> None:
-        pass
-
-    def successful_log(self)-> None:
-        pass
-
-    def value_error_log(self)->None:
-        pass
-
-    def missing_arg_log(self)-> None:
-        pass
-
-    def file_not_found_log(self,error_msg:str)->logging.getLogger():
-        log_format="%(levelname)s %(asctime)s -> %(message)s"
+        # format the output
+        self.log_format="LEVEL_NAME : %(levelname)s || %(asctime)s || CODE_LINE : %(lineno)d || MESSAGE : %(message)s"
+        # default settings for each logging level
         logging.basicConfig(filename="../project_logs.log",
-                            filemode="w",
-                            format=log_format,
-                            level=logging.ERROR)
+                            filemode="a",
+                            format=self.log_format)
+        self.log_obj = logging.getLogger()
 
-        logger_obj = logging.getLogger()
-        return logger_obj.error(error_msg)
+    # CRITICAL LEVEL 50
+    def critical_log(self,error_msg,str)->None:
+        self.log_obj.setLevel(logging.INFO)
+        self.log_obj.info(error_msg)
+
+    # ERROR LEVEL 40
+    def error_log(self,error_msg:str)->None:
+        self.log_obj.setLevel(logging.ERROR)
+        self.log_obj.error(error_msg)
+
+    # INFO LEVEL 20
+    def info_log(self,log_msg:str)-> None:
+        self.log_obj.setLevel(logging.INFO)
+        self.log_obj.info(log_msg)
     
 if __name__=='__main__':
     log_obj=ProjectLogging()
+    log_obj.info_log('Hasan')
