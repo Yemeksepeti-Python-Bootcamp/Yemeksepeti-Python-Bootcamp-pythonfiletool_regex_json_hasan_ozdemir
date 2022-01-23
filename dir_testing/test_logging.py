@@ -3,11 +3,11 @@ This script is created to test logging classes functionality
 @ Hasan Özdemir 01/23/2022
 """
 
-import unittest
-from dir_constants import LOG_PATH
+from unittest import TestCase
+from dir_constants.project_constants import LOG_PATH
 from dir_logging.project_logging import ProjectLogging
 
-class TestLogging(unittest.TestCase):
+class TestLogging(TestCase):
 
     def test_info_log(self):
         """
