@@ -1,8 +1,9 @@
-
-
+"""
+This script is created to test HelperDb class.
+@ Hasan Özdemir 01/23/2022
+"""
 
 from unittest import TestCase
-from dir_constants.project_constants import LOG_PATH
 from dir_database.helper import HelperDb
 
 class TestDbHelper(TestCase,HelperDb):
