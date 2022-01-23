@@ -2,7 +2,7 @@
 This script is created to test is_leap_year method
 @Hasan Özdemir 01/22/2022
 """
-from dir_regex.helper import HelperRegex
+from dir_regex.helper_regex import HelperRegex
 
 def test_leap_year(year:str)->None:
     """

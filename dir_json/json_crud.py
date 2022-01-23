@@ -3,7 +3,7 @@ This script is created make CRUD operations on dir_json files.
 @Hasan Özdemir 01/18/2022
 """
 from json import load
-from helper import HelperJson
+from helper_json import HelperJson
 from dir_logging.project_logging import ProjectLogging
 from dir_constants.project_constants import LOG_PATH, JSON_PATH
 

@@ -5,15 +5,16 @@ This script is created to manage dir_database opeations
 
 import sqlite3 as sql
 from contextlib import contextmanager
-from helper import HelperDb
+from helper_db import HelperDb
 from dir_logging.project_logging import ProjectLogging
+from dir_constants.project_constants import LOG_PATH
 
 class Database(HelperDb,ProjectLogging):
 
     def __init__(self) -> None:
         # inherit from HelperDb class
         HelperDb.__init__(self)
-        ProjectLogging.__init__()
+        ProjectLogging.__init__(log_file=LOG_PATH)
 
     # if you want to test in further you can use this built-in method
     def __str__(self) -> list:
@@ -22,9 +23,9 @@ class Database(HelperDb,ProjectLogging):
     @contextmanager
     def connect_database(self,database:str)->None:
         """
-        #todo documentation tbd
-        :param database:
-        :return:
+        This method created to connect to database with context manager decorator
+        :param database: <str> path of database
+        :return: None
         """
         #instantiate connection obj __init__ method
         connect_obj=None

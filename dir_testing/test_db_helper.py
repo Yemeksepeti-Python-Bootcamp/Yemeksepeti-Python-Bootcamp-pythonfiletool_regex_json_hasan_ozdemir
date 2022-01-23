@@ -4,7 +4,7 @@ This script is created to test HelperDb class.
 """
 
 from unittest import TestCase
-from dir_database.helper import HelperDb
+from dir_database.helper_db import HelperDb
 
 class TestDbHelper(TestCase,HelperDb):
 

@@ -4,7 +4,7 @@ This script is created to check for various input is valid or invalid with suppo
 """
 
 from re import match
-from helper import HelperRegex
+from helper_regex import HelperRegex
 from dir_constants.project_constants import LOG_PATH
 
 
