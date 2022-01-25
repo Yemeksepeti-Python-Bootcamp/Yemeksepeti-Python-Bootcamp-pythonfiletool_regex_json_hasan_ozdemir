@@ -14,6 +14,7 @@ class ProjectLogging:
         This constructor is created to initialize logger object and format the log output
         :param log_file: <str> path of log file to write
         """
+        super(ProjectLogging,self).__init__()
         # format the output
         self.log_format = "LEVEL : %(levelname)s || DATE_TIME : %(asctime)s || CODE_LINE : " \
                           "%(lineno)d || MESSAGE : %(message)s"
