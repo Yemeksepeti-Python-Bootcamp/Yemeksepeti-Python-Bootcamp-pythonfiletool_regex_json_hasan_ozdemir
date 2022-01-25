@@ -11,7 +11,7 @@ from dir_constants.project_constants import LOG_PATH
 class RegexOperations(HelperRegex):
 
     def __init__(self) -> None:
-        HelperRegex.__init__(self, log_file=LOG_PATH)
+        HelperRegex.__init__(self)
 
     def is_valid_mail(self, email_address: str) -> bool:
         """
