@@ -59,7 +59,7 @@ class JsonCrud(HelperJson):
 
 if __name__ == '__main__':
     j_obj = JsonCrud(log_file=LOG_PATH)
-    # Test Info Logwh
+    # Test Info Log
     j_obj.read_json(JSON_PATH)
     # Test File Not Found Log
     j_obj.read_json('hasan.xyz')

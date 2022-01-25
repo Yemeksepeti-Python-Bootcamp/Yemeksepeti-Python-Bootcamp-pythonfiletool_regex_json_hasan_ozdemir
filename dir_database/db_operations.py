@@ -48,10 +48,10 @@ class Database(HelperDb):
             connect_obj.close()
             self.info_log('Database connection closed')
 
-    def create_automatic_table(self):
+    def create_automatic_table(self)->str:
         """
         This method created to create automatic table with context manager decorator
-        :return: <bool> table is created or not
+        :return: <str> table name
         """
         table_name=f"customer_{self.time_formatting()}"
         create_table_dialect=self.create_table_str(table_name=table_name)
@@ -60,7 +60,7 @@ class Database(HelperDb):
             db_cursor=connection.cursor()
             db_cursor.execute(create_table_dialect)
         self.info_log('Database successfully created')
-        return True
+        return table_name
 
     def push_data_to_db(self,table_name:str,data:list):
         # fetched data from json
