@@ -6,26 +6,26 @@ This script is created to manage dir_database opeations
 import sqlite3 as sql
 from contextlib import contextmanager
 from helper_db import HelperDb
-from dir_logging.project_logging import ProjectLogging
-from dir_constants.project_constants import LOG_PATH
 
-class Database(HelperDb,ProjectLogging):
+class Database(HelperDb):
 
     def __init__(self) -> None:
         # inherit from HelperDb class
-        HelperDb.__init__(self)
-        ProjectLogging.__init__(log_file=LOG_PATH)
+        super(Database,self).__init__()
+        #HelperDb.__init__(self,log_file=LOG_PATH)
+        # inherit from JsonCrud class
+        #JsonCrud.__init__(self,log_file=LOG_PATH)
 
     # if you want to test in further you can use this built-in method
     def __str__(self) -> list:
         return [self.json_path,self.db_path]
 
     @contextmanager
-    def connect_database(self,database:str)->None:
+    def connect_database(self,database:str)->bool:
         """
         This method created to connect to database with context manager decorator
         :param database: <str> path of database
-        :return: None
+        :return: <bool> True or False
         """
         #instantiate connection obj __init__ method
         connect_obj=None
@@ -37,26 +37,47 @@ class Database(HelperDb,ProjectLogging):
             # connect to database __enter__ method
             yield connect_obj
             self.info_log('Database connection successful')
+            return True
         except Exception as connection_err:
             # rollback chances
             connect_obj.rollback()
             self.critical_log(str(connection_err))
+            return False
         finally:
             # close connection __exit__ method
             connect_obj.close()
             self.info_log('Database connection closed')
 
     def create_automatic_table(self):
+        """
+        This method created to create automatic table with context manager decorator
+        :return: <bool> table is created or not
+        """
         table_name=f"customer_{self.time_formatting()}"
+        create_table_dialect=self.create_table_str(table_name=table_name)
 
-    def push_data_to_db(self,database:str,table_name:str):
-        # todo documentation tbd
-        with self.connect_database(database=database) as connection:
-            pass
+        with self.connect_database(database=self.db_path) as connection:
+            db_cursor=connection.cursor()
+            db_cursor.execute(create_table_dialect)
+        self.info_log('Database successfully created')
+        return True
 
+    def push_data_to_db(self,table_name:str,data:list):
+        # fetched data from json
+        if len(data)==8:
+            data=tuple(data)
+            insert_query:str=self.push_data_str(table_name=table_name)
+            with self.connect_database(database=self.db_path) as connection:
+                db_cursor=connection.cursor()
+                db_cursor.execute(insert_query,data)
+                connection.commit()
+                db_cursor.close()
+        else:
+            self.error_log('Table field is missing')
 if __name__=='__main__':
     db_object=Database()
     #print(db_object.__str__())
+    db_object.create_automatic_table()
 
 
 # how to run 

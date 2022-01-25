@@ -5,25 +5,27 @@ This script is created to manage helper methods
 
 from datetime import datetime
 from argparse import ArgumentParser
-from dir_constants.project_constants import LOG_PATH
 from dir_logging.project_logging import ProjectLogging
-
+from dir_constants.project_constants import LOG_PATH
 
 class HelperDb(ProjectLogging):
 
-    def __init__(self) -> None:
+    def __init__(self,log_file:str) -> None:
         """
         This constructor is created to get named command line args and initialize parent constructor
         return : None
         """
         # initialize logger obj
-        ProjectLogging.__init__(LOG_PATH)
+        super(HelperDb,self).__init__(log_file=LOG_PATH)
+
+        #ProjectLogging.__init__(self,log_file=log_file)
+
         # initialize Argument parser
         parser = ArgumentParser()
         # prepare named arguments
         try:
-            parser.add_argument('--file', help='Json file path', type=str)
-            parser.add_argument('--db', help='Database file path', type=str)
+            parser.add_argument('--file', help='Json file path', type=str,default=None)
+            parser.add_argument('--db', help='Database file path', type=str,default=None)
             # get the named command line arguments
             self.json_path = parser.parse_args().file
             self.db_path = parser.parse_args().db
@@ -39,7 +41,7 @@ class HelperDb(ProjectLogging):
         date_time = str(now.strftime("%Y_%d_%m"))
         return date_time
 
-    def connection_str(self, table_name: str) -> str:
+    def create_table_str(self, table_name: str) -> str:
         """
         This method is created to provide create table sql dialect
         :param table_name: <str> table name
@@ -62,21 +64,21 @@ class HelperDb(ProjectLogging):
                             f"        ")
         return create_table_str
 
-    def push_data_str(self)->str:
+    def push_data_str(self,table_name:str)->str:
         """
         This method is created to provide insert data sql dialect
         :return: <str> sql dialect
         """
-        push_str= ("INSERT INTO %s (id,username,p_name,p_b_year,p_b_month,\n"
-                   "                    p_b_day,p_address,p_l_lat,p_l_long,api_key) \n"
-                   "                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ")
+        push_str= (f"INSERT INTO {table_name } (id,username,p_name,p_b_year,p_b_month,\n"
+                   f"                    p_b_day,p_address,p_l_lat,p_l_long,api_key) \n"
+                   f"                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ")
         return push_str
 
 if __name__ == '__main__':
     # CASE : python helper_db.py
     # CASE_2 : python helper_db.py --file hasan.db --db hasan.db
-    help_obj = HelperDb()
+    help_obj = HelperDb(log_file=LOG_PATH)
     # Test time_formatting
     print(help_obj.time_formatting())
     # Test connection_str
-    print(help_obj.connection_str('hasan'))
+    print(help_obj.create_table_str('hasan'))
