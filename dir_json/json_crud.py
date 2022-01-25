@@ -4,17 +4,17 @@ This script is created make CRUD operations on dir_json files.
 """
 from json import load
 from helper_json import HelperJson
-from dir_logging.project_logging import ProjectLogging
+
 from dir_constants.project_constants import LOG_PATH, JSON_PATH
 
 
-class JsonCrud(HelperJson, ProjectLogging):
+class JsonCrud(HelperJson):
 
-    def __init__(self) -> None:
+    def __init__(self,log_file:str) -> None:
         """
         This constructor is used to initialize json_data list object
         """
-        ProjectLogging.__init__(self, log_file=LOG_PATH)
+        super(JsonCrud,self).__init__(log_file=log_file)
         self.json_data: list = list()
 
     def read_json(self, json_path: str) -> list:
@@ -58,8 +58,8 @@ class JsonCrud(HelperJson, ProjectLogging):
 
 
 if __name__ == '__main__':
-    j_obj = JsonCrud()
-    # Test Info Log
+    j_obj = JsonCrud(log_file=LOG_PATH)
+    # Test Info Logwh
     j_obj.read_json(JSON_PATH)
     # Test File Not Found Log
     j_obj.read_json('hasan.xyz')

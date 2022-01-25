@@ -5,8 +5,12 @@ This script is created to manage helper methods
 
 from argparse import ArgumentParser
 from sys import argv
+from dir_logging.project_logging import ProjectLogging
 
-class HelperJson:
+class HelperJson(ProjectLogging):
+
+    def __init__(self,log_file):
+        super(HelperJson, self).__init__(log_file=log_file)
 
     def fetch_dict(self,item)->list:
         """
